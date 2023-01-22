@@ -12,11 +12,12 @@ namespace teacher.Db.Data
     {
         public RepositoryContext(DbContextOptions options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new PostData());
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //    modelBuilder.ApplyConfiguration(new PostData());
+        //}
 
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<Post> Posts { get; set; } = default!;
     }
 }
