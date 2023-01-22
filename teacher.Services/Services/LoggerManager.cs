@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,24 +10,27 @@ namespace teacher.Services.Services
 {
     public class LoggerManager : ILoggerManager
     {
+        private static ILoggerManager logger = (ILoggerManager)LogManager.GetCurrentClassLogger();
+        public LoggerManager() { }
+
         public void LogDebug(string message)
         {
-            throw new NotImplementedException();
+            logger.LogDebug(message);
         }
 
         public void LogError(string message)
         {
-            throw new NotImplementedException();
+            logger.LogError(message);
         }
 
         public void LogInfo(string message)
         {
-            throw new NotImplementedException();
+            logger.LogInfo(message);
         }
 
         public void LogWarning(string message)
         {
-            throw new NotImplementedException();
+            logger.LogWarning(message);
         }
     }
 }
