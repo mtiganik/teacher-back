@@ -36,50 +36,6 @@ namespace teacher.Db.Data
                 PriceMax = 50,
                 Location = "Tallinn, Harjumaa",
                 HighestDegree = "Ülikool",
-                TeachingTakesPlace = new TeachingTakesPlace
-                {
-                    Id = 1,
-                    PostId = 1,
-                    StudentsPlace = true,
-                    TeachersPlace = true,
-                    Online = true,
-                    OtherLocation = false
-                },
-                TeachSubjects = new List<Subject>
-                    {
-                        new Subject
-                        {
-                            Id = 1,
-                            PostId= 1,
-                            Name = "Matemaatika",
-                            Elementary = false,
-                            Basic = true,
-                            High = true,
-                            University = true
-                        },
-                        new Subject
-                        {
-                            Id = 2,
-                            PostId = 1,
-                            Name = "Füüsika",
-                            Elementary = true,
-                            Basic = true,
-                            High = true,
-                            University = true
-                        },
-                        new Subject
-                        {
-                            Id = 3,
-                            PostId = 1,
-                            Name = "Programmeerimine",
-                            Elementary = true,
-                            Basic = true,
-                            High = true,
-                            University = true
-                        }
-                    }
-
-
             };
                 
         }
