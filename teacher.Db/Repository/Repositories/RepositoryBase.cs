@@ -17,11 +17,11 @@ namespace teacher.Db.Repository.Repositories
         {
             _repositoryContext= repositoryContext;
         }
-        public async Task<IQueryable<T>> FindAllAsync(bool trackChages) =>
-            !trackChages ? await Task.Run(() => _repositoryContext.Set<T>().AsNoTracking()) : await Task.Run(() => _repositoryContext.Set<T>());
+        public async Task<IQueryable<T>> FindAllAsync() =>
+             await Task.Run(() => _repositoryContext.Set<T>().AsNoTracking());
 
-        public async Task<IQueryable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression, bool trackChanges) =>
-            !trackChanges ? await Task.Run(() => _repositoryContext.Set<T>().Where(expression).AsNoTracking()) : await Task.Run(() => _repositoryContext.Set<T>().Where(expression));
+        public async Task<IQueryable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression) =>
+             await Task.Run(() => _repositoryContext.Set<T>().Where(expression).AsNoTracking());
 
         public async Task CreateAsync(T entity) => await Task.Run(() => _repositoryContext.Set<T>().Add(entity));
 

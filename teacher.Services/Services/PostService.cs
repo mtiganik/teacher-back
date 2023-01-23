@@ -13,15 +13,23 @@ namespace teacher.Services.Services
 {
     public class PostService : RepositoryBase<Post>, IPostService
     {
+        private readonly RepositoryContext _repositoryContext;
         public PostService(RepositoryContext repositoryContext) : base(repositoryContext)
         {
+            _repositoryContext = repositoryContext;
         }
 
         public async Task CreatePost(Post post) => await CreateAsync(post);
         public async Task DeletePost(Post post) => await RemoveAsync(post);
-        public async Task<Post> GetPost(int postId, bool trackChanges) => await FindByConditionAsync(e => e.Id.Equals(postId), trackChanges).Result.SingleOrDefaultAsync();
+        public async Task<Post> GetPost(int postId)
+        {   
+            var post = await FindByConditionAsync(e => e.Id.Equals(postId)).Result.SingleOrDefaultAsync();
+            if (post == null) return null;
+            post.TeachingTakesPlace = await _repositoryContext.TeachingTakesPlace.Where(u => u.PostId== postId).SingleOrDefaultAsync();
+            post.TeachSubjects = await _repositoryContext.Subject.Where(u => u.PostId== postId).ToListAsync();
+            return post;
+        }
 
-
-        public async Task<List<Post>> GetPostList(bool trackChanges) => (List<Post>)await FindAllAsync(trackChanges);
+        public async Task<List<Post>> GetPostList() => (List<Post>)await FindAllAsync();
     }
 }

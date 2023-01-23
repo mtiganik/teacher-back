@@ -9,9 +9,9 @@ namespace teacher.Services.Interfaces
 {
     public interface IPostService
     {
-        Task<Post> GetPost(int postId, bool trackChanges);
+        Task<Post>? GetPost(int postId);
         Task DeletePost(Post post);
-        Task<List<Post>> GetPostList(bool trackChanges);
+        Task<List<Post>> GetPostList();
         Task CreatePost(Post post);
     }
 }

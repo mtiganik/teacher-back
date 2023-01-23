@@ -39,7 +39,8 @@ namespace teacher.Controllers
         {
             try
             {
-                var post = await _serviceManager.Post.GetPost(postId, true);
+                var post = await _serviceManager.Post.GetPost(postId);
+                if (post == null) return NotFound();
                 var postDto = _mapper.Map<PostDto>(post);
                 return Ok(postDto);
             }catch(Exception ex)
@@ -52,7 +53,7 @@ namespace teacher.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPosts()
         {
-            var postList = await _serviceManager.Post.GetPostList(true);
+            var postList = await _serviceManager.Post.GetPostList();
             var postDtoList = _mapper.Map<List<PostDto>>(postList);
             return Ok(postDtoList);
         }
@@ -62,7 +63,7 @@ namespace teacher.Controllers
         {
             try
             {
-                var postToDelete = await _serviceManager.Post.GetPost(postId, false);
+                var postToDelete = await _serviceManager.Post.GetPost(postId);
                 await _serviceManager.Post.DeletePost(postToDelete);
                 return Ok("Post succesfully deleted");
             }catch(Exception ex)

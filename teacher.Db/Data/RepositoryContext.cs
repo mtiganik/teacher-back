@@ -18,6 +18,9 @@ namespace teacher.Db.Data
         //    modelBuilder.ApplyConfiguration(new PostData());
         //}
 
-        public DbSet<Post> Posts { get; set; } = default!;
+        public DbSet<Post> Posts { get; set; }// = default!;
+        public DbSet<TeachingTakesPlace> TeachingTakesPlace {get;set;}
+        public DbSet<Subject> Subject { get; set; }
+
     }
 }
