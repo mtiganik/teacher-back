@@ -28,7 +28,7 @@ namespace teacher.Models.Models
         public int PriceMax { get; set; }
         public string? Location { get; set; }
         public string? HighestDegree { get; set; }
-        public List<Subject>? TeachSubjects { get; set; }
+        public IEnumerable<Subject>? TeachSubjects { get; set; }
         public TeachingTakesPlace? TeachingTakesPlace { get; set; }
 
     }

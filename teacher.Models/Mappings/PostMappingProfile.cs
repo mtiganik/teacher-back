@@ -16,6 +16,8 @@ namespace teacher.Models.Mappings
             CreateMap<Post, PostDto>();
             CreateMap<PostCreateDto, Post>();
             CreateMap<PostUpdateDto, Post>().ReverseMap();
+            CreateMap<TeachingTakesPlaceDto, TeachingTakesPlace>().ReverseMap();
+            CreateMap<SubjectDto, Subject>().ReverseMap();
         }
     }
 }
