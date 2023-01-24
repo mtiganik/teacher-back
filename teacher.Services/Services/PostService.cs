@@ -30,6 +30,6 @@ namespace teacher.Services.Services
             return post;
         }
 
-        public async Task<List<Post>> GetPostList() => (List<Post>)await FindAllAsync();
+        public async Task<IQueryable<Post>> GetPostList() => (IQueryable<Post>)await FindAllAsync();
     }
 }

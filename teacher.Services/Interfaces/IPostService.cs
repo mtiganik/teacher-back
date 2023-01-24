@@ -11,7 +11,7 @@ namespace teacher.Services.Interfaces
     {
         Task<Post>? GetPost(int postId);
         Task DeletePost(Post post);
-        Task<List<Post>> GetPostList();
+        Task<IQueryable<Post>> GetPostList();
         Task CreatePost(Post post);
     }
 }
