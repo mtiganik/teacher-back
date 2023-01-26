@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  mysql-development:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: helloworld
+      MYSQL_DATABASE: testapp
+    ports:
+      - "3308:3306"
+  
+  admin:
+    image: adminer
+    ports:
+      - "8080:8080"
+  
+  mysql-old:
+    image: mysql:5.7.27
+    environment:
+      MYSQL_ROOT_PASSWORD: helloworld
+      MYSQL_DATABASE: coolapp
+    ports:
+      - "3309:3306"
