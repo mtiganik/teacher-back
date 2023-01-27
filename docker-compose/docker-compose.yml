@@ -15,10 +15,9 @@ services:
     ports:
       - "8080:8080"
   
-  mysql-old:
-    image: mysql:5.7.27
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql
     environment:
-      MYSQL_ROOT_PASSWORD: helloworld
-      MYSQL_DATABASE: coolapp
-    ports:
-      - "3309:3306"
+      - SA_PASSWORD=MyStr0ngPW
+      - ACCEPT_EULA=Y
