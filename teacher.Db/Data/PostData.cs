@@ -14,18 +14,12 @@ namespace teacher.Db.Data
         public void Configure(EntityTypeBuilder<Post> builder)
         {
             builder.HasData(
-                getData()
-                ) ;
-        }
-
-        public Post getData()
-        {
-            return new Post
+            new Post
             {
                 Id = 1,
                 FirstName = "Mihkel",
                 LastName = "Tiganik",
-                PicturePath = "https://scontent-hel3-1.xx.fbcdn.net/v/t39.30808-6/246660293_10216443541721640_696967518917121996_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dLGcrq3NYUUAX8ZejJ6&_nc_ht=scontent-hel3-1.xx&oh=00_AfBVRoRLRJF0b3vz2J4XKZ52_WHH7DQLmv-ShjxvRIpxwg&oe=63D174B9",
+                PicturePath = "https://i.postimg.cc/sX0HJTRT/246660293-10216443541721640-696967518917121996-n.jpg",
                 DateOfBirth = new DateTime(1989, 10, 1),
                 Phone = "55655828",
                 Email = "mtiganik@gmail.com",
@@ -36,8 +30,25 @@ namespace teacher.Db.Data
                 PriceMax = 50,
                 Location = "Tallinn, Harjumaa",
                 HighestDegree = "Ülikool",
-            };
-                
+            },
+            new Post{
+                Id = 2,
+                FirstName = "Anngrett",
+                LastName = "Suurkask",
+                PicturePath = "https://i.postimg.cc/DZs4Cz9R/285751931-5916052801752817-7142409434228113031-n.jpg",
+                DateOfBirth= new DateTime(1995,4,21),
+                Phone ="55549251",
+                Email = "anngret2008@hotmail.com",
+                Speciality = "Muusik, kunstnik",
+                Description = "Olen vabakutseline laulja/muusik. Meeldib suhelda ja teisi õpetada",
+                Languages = "Eesti, Inglise",
+                PriceMin = 15,
+                PriceMax = 30,
+                Location = "Tallinn, Harjumaa"
+                }
+
+                ) ;
         }
+
     }
 }

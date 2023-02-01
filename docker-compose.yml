@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   web:
-    build: .
+    image: mtiganik/teacher-back-image
     container_name: teacher-app
     ports:
       - "5000:80"
@@ -18,3 +18,6 @@ services:
     environment:
       - SA_PASSWORD=${DB_SA_PASSWORD}
       - ACCEPT_EULA=Y
+
+# Connection string if used with docker
+# "sqlConnection": "Server=host.docker.internal;Database=teacher-back;User ID=sa;Password=A!VeryComplex123Password;MultipleActiveResultSets=true;"
