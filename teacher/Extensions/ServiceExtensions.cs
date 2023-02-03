@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using teacher.Db.Data;
 using teacher.Models.Mappings;
 using teacher.Services.Interfaces;
@@ -10,12 +11,25 @@ namespace teacher.Extensions
 {
     public static class ServiceExtensions
     {
+        
         public static void ConfigureLoggerService(this IServiceCollection services) =>
             services.AddScoped<ILoggerManager, LoggerManager>();
 
-        public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
+        public static string GetConnectionString(bool isDevelopment, string ConnString)
+        {
+            string envr = isDevelopment ? "DEVELOP_" : "PRODUCTION_";
+
+            string user = envr + "USER", pw = envr + "PW";
+            ConnString = ConnString.Replace("{USERNAME}", Environment.GetEnvironmentVariable(user)).Replace("{PASSWORD}", Environment.GetEnvironmentVariable(pw));
+            return ConnString;
+
+            //return ConnString.Replace("{USERNAME}", Environment.GetEnvironmentVariable(user)).Replace("{PASSWORD}", Environment.GetEnvironmentVariable(pw));
+        }
+
+        public static void ConfigureSqlContext(this IServiceCollection services, string connectionString) =>
+
             services.AddDbContext<RepositoryContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("sqlConnection"),
+                options.UseSqlServer(connectionString,
                     b => b.MigrationsAssembly("teacher.Db")));
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
@@ -31,5 +45,31 @@ namespace teacher.Extensions
             services.AddSingleton(mapperConfig.CreateMapper());
 
         }
+
+        public static void AddConfigs(this IServiceCollection services)
+        {
+            var filepath = Directory.GetCurrentDirectory();
+            filepath = filepath + "\\.env";
+            Load(filepath);
+        }
+
+        private static void Load(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return;
+
+            foreach (var line in File.ReadAllLines(filePath))
+            {
+                var parts = line.Split(
+                    '=',
+                    StringSplitOptions.RemoveEmptyEntries);
+
+                if (parts.Length != 2)
+                    continue;
+
+                Environment.SetEnvironmentVariable(parts[0], parts[1]);
+            }
+        }
+
     }
 }

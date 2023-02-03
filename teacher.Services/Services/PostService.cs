@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using teacher.Db.Data;
@@ -30,6 +31,23 @@ namespace teacher.Services.Services
             return post;
         }
 
-        public async Task<IQueryable<Post>> GetPostList() => (IQueryable<Post>)await FindAllAsync();
+        public async Task<IQueryable<Post>> GetPostList()
+        {
+            return await Task.Run(() => _repositoryContext.Posts
+                                 .Join(_repositoryContext.Subject,
+                                       post => post.Id,
+                                       subject => subject.PostId,
+                                       (post, subject) => new { post, subject })
+                                 .AsEnumerable()
+            .GroupBy(x => x.post.Id).Select(x => new Post
+            {
+                Id = x.Key,
+                FirstName = x.First().post.FirstName,
+                LastName = x.First().post.LastName,
+                TeachSubjects = x.Select(y => y.subject)
+            })
+                                  .AsQueryable());
+
+        } //=> await FindAllAsync().ContinueWith(x => (IQueryable<Post>)x.Result);
     }
 }
