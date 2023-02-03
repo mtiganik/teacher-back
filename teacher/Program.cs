@@ -8,15 +8,14 @@ using teacher.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddConfigs();
+builder.Services.AddConfigs("\\.env");
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 LoggerManager logger = new LoggerManager();
 
-Console.WriteLine(builder.Configuration.GetConnectionString("sqlConnection"));
 builder.Services.ConfigureMapping();
 builder.Services.ConfigureLoggerService();
 
-string connString = ServiceExtensions.GetConnectionString(builder.Environment.IsDevelopment(), builder.Configuration.GetConnectionString("sqlConnection"));
+string connString = ServiceExtensions.GetConnectionStringWithValues(builder.Environment.IsDevelopment(), builder.Configuration.GetConnectionString("sqlConnection"));
 
 
 builder.Services.ConfigureSqlContext(connString);

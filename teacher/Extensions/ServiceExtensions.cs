@@ -15,15 +15,13 @@ namespace teacher.Extensions
         public static void ConfigureLoggerService(this IServiceCollection services) =>
             services.AddScoped<ILoggerManager, LoggerManager>();
 
-        public static string GetConnectionString(bool isDevelopment, string ConnString)
+        public static string GetConnectionStringWithValues(bool isDevelopment, string ConnString)
         {
             string envr = isDevelopment ? "DEVELOP_" : "PRODUCTION_";
 
             string user = envr + "USER", pw = envr + "PW";
-            ConnString = ConnString.Replace("{USERNAME}", Environment.GetEnvironmentVariable(user)).Replace("{PASSWORD}", Environment.GetEnvironmentVariable(pw));
-            return ConnString;
 
-            //return ConnString.Replace("{USERNAME}", Environment.GetEnvironmentVariable(user)).Replace("{PASSWORD}", Environment.GetEnvironmentVariable(pw));
+            return ConnString.Replace("{USERNAME}", Environment.GetEnvironmentVariable(user)).Replace("{PASSWORD}", Environment.GetEnvironmentVariable(pw));
         }
 
         public static void ConfigureSqlContext(this IServiceCollection services, string connectionString) =>
@@ -46,10 +44,10 @@ namespace teacher.Extensions
 
         }
 
-        public static void AddConfigs(this IServiceCollection services)
+        public static void AddConfigs(this IServiceCollection services, string fileName)
         {
             var filepath = Directory.GetCurrentDirectory();
-            filepath = filepath + "\\.env";
+            filepath = filepath + fileName;
             Load(filepath);
         }
 
