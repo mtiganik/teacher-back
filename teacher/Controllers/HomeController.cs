@@ -10,7 +10,7 @@ namespace teacher.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new[] { "hello","From", "World!" };
+            return new[] { "hello","From", "World!23" };
         }
     }
 }
