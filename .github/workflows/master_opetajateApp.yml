@@ -45,7 +45,7 @@ jobs:
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'opetajate-app'
+        app-name: 'opetajateapp'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_20e169485e9145dfb029fc6963107972 }}
         images: 'opetajatekonteinerregisterback.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_b753c4cf5e0b41b080000f3672ee6d58 }}/teacher-back:${{ github.sha }}'
