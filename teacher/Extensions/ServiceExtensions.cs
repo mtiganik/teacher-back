@@ -24,6 +24,19 @@ namespace teacher.Extensions
             return ConnString.Replace("{USERNAME}", Environment.GetEnvironmentVariable(user)).Replace("{PASSWORD}", Environment.GetEnvironmentVariable(pw));
         }
 
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+        }
+
         public static void ConfigureSqlContext(this IServiceCollection services, string connectionString) =>
 
             services.AddDbContext<RepositoryContext>(options =>

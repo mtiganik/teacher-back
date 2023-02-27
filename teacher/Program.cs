@@ -12,6 +12,9 @@ builder.Services.AddConfigs("\\.env");
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 LoggerManager logger = new LoggerManager();
 
+
+builder.Services.ConfigureCors();
+
 builder.Services.ConfigureMapping();
 builder.Services.ConfigureLoggerService();
 
@@ -33,5 +36,6 @@ if (app.Environment.IsDevelopment())
 
 }
 //app.MapGet("/");
+app.UseCors("AllowAll");
 app.MapControllers();
 app.Run();
